@@ -217,12 +217,15 @@ module dmi_jtag_tap #(
         .clk_o ( tck_ni )
     );
 
+/*
     pulp_clock_mux2 i_dft_tck_mux (
         .clk0_i    ( tck_ni     ),
         .clk1_i    ( tck_i      ), // bypass the inverted clock for testing
         .clk_sel_i ( testmode_i ),
         .clk_o     ( tck_n      )
     );
+*/
+    assign tck_n = tck_ni;  // pulp_clock_mux2 doesn't really want to work with Quartus
 
     // TDO changes state at negative edge of TCK
     always_ff @(posedge tck_n, negedge trst_ni) begin
